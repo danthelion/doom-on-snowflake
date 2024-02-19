@@ -1,15 +1,15 @@
-USE ROLE container_apps_test_role;
-USE DATABASE container_apps_test_db;
-USE SCHEMA container_apps_test_schema;
-USE WAREHOUSE container_apps_test_warehouse;
+USE ROLE doom_role;
+USE DATABASE doom_db;
+USE SCHEMA doom_schema;
+USE WAREHOUSE doom_warehouse;
 
 CREATE SERVICE doom_service
-  IN COMPUTE POOL container_apps_test_compute_pool
+  IN COMPUTE POOL doom_compute_pool
   FROM SPECIFICATION $$
     spec:
       containers:
-      - name: echo
-        image: /container_apps_test_db/container_apps_test_schema/container_apps_test_repository/doom:latest
+      - name: doom
+        image: /doom_db/doom_schema/doom_repository/doom:latest
         env:
           SERVER_PORT: 8080
       endpoints:

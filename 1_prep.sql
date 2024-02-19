@@ -1,34 +1,37 @@
 USE ROLE ACCOUNTADMIN;
 
-CREATE ROLE container_apps_test_role;
+CREATE ROLE doom_role;
 
-CREATE DATABASE IF NOT EXISTS container_apps_test_db;
-GRANT OWNERSHIP ON DATABASE container_apps_test_db TO ROLE container_apps_test_role;
+CREATE DATABASE IF NOT EXISTS doom_db;
+GRANT OWNERSHIP ON DATABASE doom_db TO ROLE doom_role;
 
-CREATE OR REPLACE WAREHOUSE container_apps_test_warehouse WITH
+CREATE OR REPLACE WAREHOUSE doom_wh WITH
   WAREHOUSE_SIZE='X-SMALL';
-GRANT USAGE ON WAREHOUSE container_apps_test_warehouse TO ROLE container_apps_test_role;
+GRANT USAGE ON WAREHOUSE doom_wh TO ROLE doom_role;
 
-CREATE SECURITY INTEGRATION IF NOT EXISTS container_apps_test_snowservices_ingress_oauth
+CREATE SECURITY INTEGRATION IF NOT EXISTS doom_snowservices_ingress_oauth
   TYPE=oauth
   OAUTH_CLIENT=snowservices_ingress
   ENABLED=true;
 
-GRANT BIND SERVICE ENDPOINT ON ACCOUNT TO ROLE container_apps_test_role;
+GRANT BIND SERVICE ENDPOINT ON ACCOUNT TO ROLE doom_role;
 
-CREATE COMPUTE POOL container_apps_test_compute_pool
+CREATE COMPUTE POOL doom_compute_pool
   MIN_NODES = 1
   MAX_NODES = 1
   INSTANCE_FAMILY = CPU_X64_XS;
-GRANT USAGE, MONITOR ON COMPUTE POOL container_apps_test_compute_pool TO ROLE container_apps_test_role;
+GRANT USAGE, MONITOR ON COMPUTE POOL doom_compute_pool TO ROLE doom_role;
 
-GRANT ROLE container_apps_test_role TO USER DANI_ADMIN;
+GRANT ROLE doom_role TO USER <your_user>;
 
-USE ROLE container_apps_test_role;
-USE DATABASE container_apps_test_db;
-USE WAREHOUSE container_apps_test_warehouse;
+USE ROLE doom_role;
+USE DATABASE doom_db;
+USE WAREHOUSE doom_wh;
 
-CREATE SCHEMA IF NOT EXISTS container_apps_test_schema;
-CREATE IMAGE REPOSITORY IF NOT EXISTS container_apps_test_repository;
-CREATE STAGE IF NOT EXISTS container_apps_test_stage
-  DIRECTORY = ( ENABLE = true );
+CREATE SCHEMA IF NOT EXISTS doom_schema;
+CREATE IMAGE REPOSITORY IF NOT EXISTS doom_repository;
+
+
+SHOW COMPUTE POOLS;
+SHOW WAREHOUSES;
+SHOW IMAGE REPOSITORIES;

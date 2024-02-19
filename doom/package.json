@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "js-dos 6.22",
   "scripts": {
-    "start": "http-server",
+    "start": "http-server --host 0.0.0.0 --port 80",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
